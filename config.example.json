@@ -1,0 +1,15 @@
+{
+  "rpc_url": "http://127.0.0.1:8545",
+  "chain_id": 1337,
+  "solidity_version": "0.8.20",
+  "contract_name": "EvidenceRegistry",
+  "contract_address": "",
+  "default_metadata_prefix": "CASE=CASE123;EXAMINER=KEITH01",
+  "paths": {
+    "evidence_root": "evidence",
+    "hashes_export_json": "out/exports/hashes_export.json",
+    "encrypted_root": "out/encrypted",
+    "metadata_root": "out/metadata",
+    "logs_dir": "logs"
+  }
+}
