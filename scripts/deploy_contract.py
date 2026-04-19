@@ -112,7 +112,7 @@ def deploy(w3: Web3, chain_id: int, abi: Any, bytecode: str, deployer_privkey: s
         }
     )
     signed = acct.sign_transaction(tx)
-    tx_hash = w3.eth.send_raw_transaction(signed.rawTransaction)
+    tx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)
     receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     if receipt.status != 1:
         raise RuntimeError(f"Deployment failed. tx={tx_hash.hex()}")
