@@ -4,7 +4,7 @@
   "solidity_version": "0.8.20",
   "contract_name": "EvidenceRegistry",
   "contract_address": "",
-  "default_metadata_prefix": "CASE=CASE123;EXAMINER=KEITH01",
+  "default_metadata_prefix": "CASE=CASE123;EXAMINER=EXAMINER01",
   "paths": {
     "evidence_root": "evidence",
     "hashes_export_json": "out/exports/hashes_export.json",
