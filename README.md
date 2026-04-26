@@ -1,60 +1,3 @@
-# Evidence Chain Prototype
-
-**Blockchain-backed digital evidence integrity system** for forensic chain-of-custody.
-
-This prototype demonstrates how to:
-- Hash evidence files with cryptographic integrity (SHA-256)
-- Encrypt evidence using authenticated encryption (ChaCha20-Poly1305)
-- Anchor ciphertext hashes on an Ethereum blockchain (Ganache devnet)
-- Verify evidence has not been tampered with
-
----
-
-## Architecture
-
-┌─────────────────────────────────────────────────────────────────────────┐
-│                          EVIDENCE CHAIN PIPELINE                        │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐              │
-│  │   ACQUIRE    │───▶│   ENCRYPT    │───▶│   ANCHOR     │              │
-│  │  PowerShell  │    │    Python    │    │  Ethereum    │              │
-│  │  SHA-256     │    │ ChaCha20     │    │  Ganache     │              │
-│  └──────────────┘    └──────────────┘    └──────────────┘              │
-│         │                   │                   │                       │
-│         ▼                   ▼                   ▼                       │
-│  hashes_export.json   *.enc files        On-chain record               │
-│                       *.meta.json        (immutable)                   │
-│                                                                         │
-│  ┌──────────────────────────────────────────────────────┐              │
-│  │                      VERIFY                          │              │
-│  │   Compare: ciphertext hash ←→ meta.json ←→ chain     │              │
-│  └──────────────────────────────────────────────────────┘              │
-│                              │                                          │
-│                              ▼                                          │
-│                      OK ✓ or TAMPERED ✗                                │
-└─────────────────────────────────────────────────────────────────────────┘
-
----
-
-## Prerequisites
-
-| Component | Version | Installation |
-|-----------|---------|--------------|
-| Windows 11 | 25H2 | - |
-| PowerShell | 7.x | Microsoft Store |
-| Python | 3.11+ | Microsoft Store |
-| Node.js | 18+ | https://nodejs.org |
-| Ganache | 7.x | `npm install -g ganache` |
-
----
-
-## Quick Start (Reproducible)
-
-### 1. Clone and Setup
-
-```powershell
-
 git clone https://github.com/Xdfighter97/evidence-chain-prototype.git
 cd evidence-chain-prototype
 
@@ -80,8 +23,7 @@ npx ganache --deterministic
 
 # Single command runs everything
 .\run_pipeline.ps1 -CaseId "CASE2026-001" -ExaminerId "EXAMINER01"
-
-## Directory Structure
+Directory Structure
 
 evidence-chain-prototype/
 ├── config.example.json      # Template configuration (copy to config.json)
@@ -113,9 +55,7 @@ evidence-chain-prototype/
 │   └── metadata/            # Per-file metadata (*.meta.json)
 │
 └── logs/                    # Append-only audit logs (gitignored)
-
-# Step-by-Step Manual Workflow
-
+🔧 Step-by-Step Manual Workflow
 If you prefer running each step individually:
 
 Step 1: Deploy Smart Contract
@@ -144,9 +84,7 @@ Step 4: Verify Integrity
 
 $env:VERIFY_ONCHAIN = "1"  # or "0" for local-only
 python scripts/verify.py
-
-# Output Files
-
+📊 Output Files
 hashes_export.json
 
 {
@@ -183,8 +121,7 @@ hashes_export.json
     "tx_hash": "0x9f8e..."
   }
 }
-
-# Reset for Fresh Run
+🔄 Reset for Fresh Run
 
 # Clean all outputs (preserves evidence, scripts, config)
 .\reset.ps1
@@ -192,32 +129,33 @@ hashes_export.json
 # Keep logs
 .\reset.ps1 -KeepLogs
 
-# Security Notes
-
+Security Notes
 Requirement	Implementation
 Key Storage	Environment variable, never in repo
 Key Generation	Cryptographically secure (os.urandom)
-Encryption	ChaCha20-Poly1305 with a unique nonce per file
+Encryption	ChaCha20-Poly1305 with unique nonce per file
 Integrity	SHA-256 of ciphertext anchored on-chain
-Audit Trail: Append-only, timestamped logs with test IDs
+Audit Trail	Append-only timestamped logs with test IDs
 
-# Future Extensions
-
+Future Extensions
 Hyperledger Fabric
 Replace Ganache with Fabric for permissioned enterprise deployment:
+
 Use Fabric SDK for Python
 Deploy chaincode equivalent of EvidenceRegistry
 IPFS Integration
 Store encrypted files off-chain:
+
 Upload *.enc to IPFS
 Store CID (content hash) on-chain instead of SHA-256
 Web UI
 Add Flask/FastAPI interface:
-Upload evidence through the browser
+
+Upload evidence through browser
 View verification status dashboard
 Download audit reports
 
-# License
+License
 MIT License - See LICENSE file for details.
 
 
