@@ -11,28 +11,8 @@ cd evidence-chain-prototype
 
 ## The Architecture
  
-  ┌─────────────────────────────────────────────────────────────────────────┐
-  │                          EVIDENCE CHAIN PIPELINE                        │
-  ├─────────────────────────────────────────────────────────────────────────┤
-  │                                                                         │
-  │  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐               │
-  │  │  ACQUIRE     │ ─▶ │  ENCRYPT     │─▶ │  ANCHOR       │               │
-  │  │  PowerShell  │    │ Python       │    │  Ethereum    │               │
-  │  │  SHA-256     │    │ ChaCha20     │    │  Ganache     │               │
-  │  └──────────────┘    └──────────────┘    └──────────────┘               │
-  │         │                   │                   │                       │
-  │         ▼                   ▼                   ▼                       │
-  │  hashes_export.json   *.enc files        On-chain record                │
-  │                       *.meta.json        (immutable)                    │
-  │                                                                         │
-  │  ┌──────────────────────────────────────────────────────┐               │
-  │  │                      VERIFY                          │               │
-  │  │   Compare: ciphertext hash ←→ meta.json ←→ chain     │               │
-  │  └──────────────────────────────────────────────────────┘               │
-  │                              │                                          │
-  │                              ▼                                          │
-  │                      OK ✓ or TAMPERED ✗                                │
-  └─────────────────────────────────────────────────────────────────────────┘
+<img width="705" height="433" alt="image" src="https://github.com/user-attachments/assets/e72a3e1b-46c6-4d2a-8cc3-611d01a02cfa" />
+
 
 
 # Create Python virtual environment
