@@ -1,6 +1,40 @@
 git clone https://github.com/Xdfighter97/evidence-chain-prototype.git
 cd evidence-chain-prototype
 
+**Blockchain-backed digital evidence integrity system** for forensic chain-of-custody.
+ 
+   This prototype demonstrates how to:
+   - Hash evidence files with cryptographic integrity (SHA-256)
+   - Encrypt evidence using authenticated encryption (ChaCha20-Poly1305)
+   - Anchor ciphertext hashes on an Ethereum blockchain (Ganache devnet)
+   - Verify evidence has not been tampered with  
+
+## The Architecture
+ 
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                          EVIDENCE CHAIN PIPELINE                        │
+  ├─────────────────────────────────────────────────────────────────────────┤
+  │                                                                         │
+  │  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐               │
+  │  │  ACQUIRE     │ ─▶ │  ENCRYPT     │─▶ │  ANCHOR       │               │
+  │  │  PowerShell  │    │ Python       │    │  Ethereum    │               │
+  │  │  SHA-256     │    │ ChaCha20     │    │  Ganache     │               │
+  │  └──────────────┘    └──────────────┘    └──────────────┘               │
+  │         │                   │                   │                       │
+  │         ▼                   ▼                   ▼                       │
+  │  hashes_export.json   *.enc files        On-chain record                │
+  │                       *.meta.json        (immutable)                    │
+  │                                                                         │
+  │  ┌──────────────────────────────────────────────────────┐               │
+  │  │                      VERIFY                          │               │
+  │  │   Compare: ciphertext hash ←→ meta.json ←→ chain     │               │
+  │  └──────────────────────────────────────────────────────┘               │
+  │                              │                                          │
+  │                              ▼                                          │
+  │                      OK ✓ or TAMPERED ✗                                │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+
 # Create Python virtual environment
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
