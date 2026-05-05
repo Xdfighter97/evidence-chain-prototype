@@ -39,37 +39,9 @@ npx ganache --deterministic
 .\run_pipeline.ps1 -CaseId "CASE2026-001" -ExaminerId "EXAMINER01"
 Directory Structure
 
-evidence-chain-prototype/
-├── config.example.json      # Template configuration (copy to config.json)
-├── .env.example             # Template for secrets (copy to .env)
-├── requirements.txt         # Python dependencies
-│
-├── contracts/
-│   └── EvidenceRegistry.sol # Solidity smart contract
-│
-├── scripts/
-│   ├── run_pipeline.ps1     # One-command full pipeline
-│   ├── reset.ps1            # Clean outputs for fresh run
-│   ├── keygen.py            # Key generation utility
-│   ├── deploy_contract.py   # Deploy smart contract
-│   ├── ForensicHashPipeline.ps1  # Evidence acquisition
-│   ├── encrypt_and_hash.py  # Encryption + anchoring
-│   └── verify.py            # Integrity verification
-│
-├── evidence/                # Source evidence files
-│   ├── doc1.txt
-│   ├── doc2.txt
-│   ├── notes.log
-│   └── images/
-│       └── blob.bin
-│
-├── out/                     # Generated outputs (gitignored)
-│   ├── exports/             # Hash manifests
-│   ├── encrypted/           # Encrypted files (*.enc)
-│   └── metadata/            # Per-file metadata (*.meta.json)
-│
-└── logs/                    # Append-only audit logs (gitignored)
-🔧 Step-by-Step Manual Workflow
+<img width="382" height="502" alt="image" src="https://github.com/user-attachments/assets/b434cd5a-8e3f-454a-8148-ecaafa0d1b02" />
+
+Step-by-Step Manual Workflow
 If you prefer running each step individually:
 
 Step 1: Deploy Smart Contract
@@ -98,7 +70,8 @@ Step 4: Verify Integrity
 
 $env:VERIFY_ONCHAIN = "1"  # or "0" for local-only
 python scripts/verify.py
-📊 Output Files
+
+Output Files
 hashes_export.json
 
 {
@@ -135,7 +108,8 @@ hashes_export.json
     "tx_hash": "0x9f8e..."
   }
 }
-🔄 Reset for Fresh Run
+
+Reset for Fresh Run
 
 # Clean all outputs (preserves evidence, scripts, config)
 .\reset.ps1
