@@ -163,7 +163,7 @@ def anchor_hash(
         }
     )
     signed = acct.sign_transaction(tx)
-    tx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)
+    raw_tx = signed.raw_transaction if hasattr(signed, 'raw_transaction') else signed.rawTransaction
     receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     if receipt.status != 1:
         raise RuntimeError(f"registerEvidence failed. tx={tx_hash.hex()}")
